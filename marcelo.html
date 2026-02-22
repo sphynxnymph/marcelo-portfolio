@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Marcelo's Stuff</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4a6fa5">
+  <meta name="msapplication-navbutton-color" content="#4a6fa5">
+  <link rel="shortcut icon" href="./orteils_files/favicon.ico">
+  <link href="./orteils_files/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <div id="wrapper">
+    <div id="anchor">
+      <!-- Header with glow wrapper -->
+      <div class="header-wrapper">
+        <div class="header-glow"></div>
+        <div id="head">Marcelo's Stuff</div>
+      </div>
+      <br>
+      <a id="back" href="https://google.com/">« back to Google</a>
+
+      <!-- About window with glow wrapper -->
+      <div class="window-wrapper" id="Wabout-wrapper">
+        <div class="window-glow"></div>
+        <div class="window" id="Wabout">
+          <div class="title-bar"><span class="title">About</span></div>
+          <div class="window-inner">
+            <div class="desc" style="padding-top:4px;">
+              <p>Hello. I'm Marcelo, the webmaster of this digital domain.</p>
+              <p>Welcome to my lair. I'm an English teacher and computer science-curious netizen.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other windows in a row -->
+      <div class="other-windows">
+        <div class="window-wrapper">
+          <div class="window-glow"></div>
+          <div class="window" id="Wgames">
+            <div class="title-bar"><span class="title">Projects</span></div>
+            <div class="window-inner">
+              <div class="desc" style="text-align:center;">(cool and fun things)</div>
+              <div class="inner">
+                <div class="li">
+                  <a href="https://github.com/baependi/marcelocr">
+                    <img src="./orteils_files/iconJS.png">marcelocr
+                    <div>
+                      <p><b>marcelocr</b> (2024)</p>
+                      <p>A JavaScript repository.</p>
+                      <p>My main coding playground.</p>
+                    </div>
+                  </a>
+                </div>
+                <div class="li">
+                  <a href="https://github.com/baependi/libtorrent">
+                    <img src="./orteils_files/iconCPP.png">libtorrent
+                    <div>
+                      <p><b>libtorrent</b> (2024)</p>
+                      <p>An efficient feature complete C++ bittorrent implementation.</p>
+                      <p>Fork of arvidn/libtorrent.</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="window-wrapper">
+          <div class="window-glow"></div>
+          <div class="window" id="Wtoys">
+            <div class="title-bar"><span class="title">Tools &amp; Toys</span></div>
+            <div class="window-inner">
+              <div class="desc" style="text-align:center;">(stuff that makes stuff)</div>
+              <div class="inner">
+                <div class="li">
+                  <a href="#">
+                    <img src="./orteils_files/iconWIP.png">[Coming Soon]
+                    <div>
+                      <p><b>[Coming Soon]</b></p>
+                      <p>Something cool is brewing...</p>
+                      <p>Check back later!</p>
+                    </div>
+                  </a>
+                </div>
+                <div class="li">
+                  <a href="#">
+                    <img src="./orteils_files/iconWIP.png">[Coming Soon]
+                    <div>
+                      <p><b>[Coming Soon]</b></p>
+                      <p>More stuff to come...</p>
+                      <p>Stay tuned!</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="window-wrapper">
+          <div class="window-glow"></div>
+          <div class="window" id="Wexps">
+            <div class="title-bar"><span class="title">Experiments</span></div>
+            <div class="window-inner">
+              <div class="desc" style="text-align:center;">(unfinished, broken,<br>or just plain bad)</div>
+              <div class="inner">
+                <div class="li">
+                  <a href="#">
+                    <img src="./orteils_files/iconWIP.png">Experiment #1
+                    <div>
+                      <p><b>Experiment #1</b></p>
+                      <p>A work in progress...</p>
+                    </div>
+                  </a>
+                </div>
+                <div class="li">
+                  <a href="#">
+                    <img src="./orteils_files/iconWIP.png">Experiment #2
+                    <div>
+                      <p><b>Experiment #2</b></p>
+                      <p>Still cooking...</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="window-wrapper">
+          <div class="window-glow"></div>
+          <div class="window" id="Wlinks">
+            <div class="title-bar"><span class="title">Links</span></div>
+            <div class="window-inner">
+              <div class="desc" style="text-align:center;">(other places you can find me)</div>
+              <div class="inner">
+                <div class="li">
+                  <a href="https://github.com/baependi">
+                    <img src="./orteils_files/iconGithub.png">GitHub
+                    <div>
+                      <p><b>My GitHub</b></p>
+                      <p>Where I store my code.</p>
+                    </div>
+                  </a>
+                </div>
+                <div class="li">
+                  <a href="#" id="obfuscated-email" onclick="revealEmail(); return false;">
+                    <img src="./orteils_files/iconEmail.png">Email
+                    <div>
+                      <p><b>Email Me</b></p>
+                      <p>Click to reveal.</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function revealEmail() {
+      window.location.href = 'mailto:marcelo@ribeiro.info';
+    }
+  </script>
+</body>
+</html>

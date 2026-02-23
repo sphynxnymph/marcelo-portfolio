@@ -177,11 +177,11 @@
       const sensitivityRadiusX = screenWidth * 1.2;
       const sensitivityRadiusY = screenHeight * 1.2;
 
-      // Calculate normalized cursor position (0 to 1) with easing toward center
+      // Calculate normalized cursor position (0 to 1) with subtle curve
       const normX = cursorX / screenWidth;
       const normY = cursorY / screenHeight;
-      // Use smooth curve - less extreme at edges, more in middle
-      const curvedX = Math.sin(normX * Math.PI);
+      // Wider curve - use power function to flatten the sine
+      const curvedX = Math.pow(Math.sin(normX * Math.PI), 0.6);
       const curvedY = Math.sin(normY * Math.PI);
 
       // Update header

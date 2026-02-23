@@ -100,12 +100,12 @@
               <div class="desc" style="text-align:center;">(stuff that makes stuff)</div>
               <div class="inner">
                 <div class="li">
-                  <a href="#">
-                    <img src="./iconWIP.png">[Coming Soon]
+                  <a href="#" onclick="var dw = document.getElementById('debug-window'); var ds = document.getElementById('debug-status'); dw.style.display = dw.style.display === 'none' ? 'block' : 'none'; ds.textContent = dw.style.display === 'none' ? 'OFF' : 'ON'; return false;">
+                    <img src="./iconWIP.png">Debug Toggle
                     <div>
-                      <p><b>[Coming Soon]</b></p>
-                      <p>Something cool is brewing...</p>
-                      <p>Check back later!</p>
+                      <p><b>Debug Toggle</b></p>
+                      <p>Show/hide debug panel.</p>
+                      <p>Currently: <span id="debug-status">ON</span></p>
                     </div>
                   </a>
                 </div>

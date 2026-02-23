@@ -174,8 +174,15 @@
       const cursorY = e.clientY;
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
-      const sensitivityRadiusX = screenWidth * 1.0;
-      const sensitivityRadiusY = screenHeight * 1.0;
+      const sensitivityRadiusX = screenWidth * 1.2;
+      const sensitivityRadiusY = screenHeight * 1.2;
+
+      // Calculate normalized cursor position (0 to 1) with easing toward center
+      const normX = cursorX / screenWidth;
+      const normY = cursorY / screenHeight;
+      // Use smooth curve - less extreme at edges, more in middle
+      const curvedX = Math.sin(normX * Math.PI);
+      const curvedY = Math.sin(normY * Math.PI);
 
       // Update header
       const head = document.getElementById('head');
@@ -186,9 +193,9 @@
       const headDistY = Math.abs(cursorY - headCenterY);
       const headInfluenceX = Math.max(0, 1 - (headDistX / sensitivityRadiusX));
       const headInfluenceY = Math.max(0, 1 - (headDistY / sensitivityRadiusY));
-      const headInfluence = Math.min(1, headInfluenceX + headInfluenceY);
-      // Map: cursor far left = 0, cursor at window = 90, cursor far right = 180 (but influenced by proximity)
-      const headPos = 90 + (cursorX / screenWidth - 0.5) * 180 * headInfluence;
+      const headInfluence = Math.min(1, (headInfluenceX + headInfluenceY * 1.5) / 2);
+      // Use curved position, influenced by proximity
+      const headPos = 90 + (curvedX - 0.5) * 180 * headInfluence;
       head.style.setProperty('--grad-pos', Math.max(0, Math.min(180, headPos)));
 
       // Update all title bars
@@ -200,8 +207,8 @@
         const distY = Math.abs(cursorY - centerY);
         const influenceX = Math.max(0, 1 - (distX / sensitivityRadiusX));
         const influenceY = Math.max(0, 1 - (distY / sensitivityRadiusY));
-        const influence = Math.min(1, influenceX + influenceY);
-        const pos = 90 + (cursorX / screenWidth - 0.5) * 180 * influence;
+        const influence = Math.min(1, (influenceX + influenceY * 1.5) / 2);
+        const pos = 90 + (curvedX - 0.5) * 180 * influence;
         titleBar.style.setProperty('--grad-pos', Math.max(0, Math.min(180, pos)));
       });
     });

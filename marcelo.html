@@ -171,7 +171,7 @@
                   </a>
                 </div>
                 <div class="li">
-                  <a href="#" id="obfuscated-email" onclick="revealEmail(); return false;">
+                  <a href="#" id="obfuscated-email" data-user="marcelo" data-domain="ribeiro.info" onclick="var u=this.getAttribute('data-user'),d=this.getAttribute('data-domain');this.href='mailto:'+u+'@'+d;return true;">
                     <img src="./iconEmail.png">Email
                     <div>
                       <p><b>Email Me</b></p>
@@ -188,10 +188,6 @@
   </div>
 
   <script>
-    function revealEmail() {
-      window.location.href = 'mailto:marcelo@ribeiro.info';
-    }
-
     // Cache debug elements (check they exist first)
     const debugEls = {};
     const debugElIds = ['debug-cursorX', 'debug-cursorY', 'debug-screenWidth', 'debug-globalNormX', 'debug-globalCurvedX', 'debug-centerX', 'debug-centerY', 'debug-distX', 'debug-distY', 'debug-influenceX', 'debug-influenceY', 'debug-influence', 'debug-gradPos', 'debug-window'];

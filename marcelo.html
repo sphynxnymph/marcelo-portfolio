@@ -192,6 +192,25 @@
       window.location.href = 'mailto:marcelo@ribeiro.info';
     }
 
+    // Cache debug elements outside handler
+    const debugEls = {
+      cursorX: document.getElementById('debug-cursorX'),
+      cursorY: document.getElementById('debug-cursorY'),
+      screenWidth: document.getElementById('debug-screenWidth'),
+      globalNormX: document.getElementById('debug-globalNormX'),
+      globalCurvedX: document.getElementById('debug-globalCurvedX'),
+      centerX: document.getElementById('debug-centerX'),
+      centerY: document.getElementById('debug-centerY'),
+      distX: document.getElementById('debug-distX'),
+      distY: document.getElementById('debug-distY'),
+      influenceX: document.getElementById('debug-influenceX'),
+      influenceY: document.getElementById('debug-influenceY'),
+      influence: document.getElementById('debug-influence'),
+      gradPos: document.getElementById('debug-gradPos'),
+      window: document.getElementById('debug-window')
+    };
+    const titleBars = document.querySelectorAll('.title-bar');
+
     // Cursor-following gradient effect - global X with per-window influence
     document.addEventListener('mousemove', function(e) {
       const cursorX = e.clientX;
@@ -219,23 +238,25 @@
       const headPos = 90 + (globalCurvedX - 0.5) * 180 * headInfluence;
       head.style.setProperty('--grad-pos', Math.max(0, Math.min(180, headPos)));
 
-      // Update debug window with header ("Marcelo's Stuff") values
-      document.getElementById('debug-cursorX').textContent = cursorX.toFixed(1);
-      document.getElementById('debug-cursorY').textContent = cursorY.toFixed(1);
-      document.getElementById('debug-screenWidth').textContent = screenWidth.toFixed(1);
-      document.getElementById('debug-globalNormX').textContent = globalNormX.toFixed(3);
-      document.getElementById('debug-globalCurvedX').textContent = globalCurvedX.toFixed(3);
-      document.getElementById('debug-centerX').textContent = headCenterX.toFixed(1);
-      document.getElementById('debug-centerY').textContent = headCenterY.toFixed(1);
-      document.getElementById('debug-distX').textContent = headDistX.toFixed(1);
-      document.getElementById('debug-distY').textContent = headDistY.toFixed(1);
-      document.getElementById('debug-influenceX').textContent = headInfluenceX.toFixed(3);
-      document.getElementById('debug-influenceY').textContent = headInfluenceY.toFixed(3);
-      document.getElementById('debug-influence').textContent = headInfluence.toFixed(3);
-      document.getElementById('debug-gradPos').textContent = headPos.toFixed(1);
+      // Update debug window only if visible
+      if (debugEls.window.style.display !== 'none') {
+        debugEls.cursorX.textContent = cursorX.toFixed(1);
+        debugEls.cursorY.textContent = cursorY.toFixed(1);
+        debugEls.screenWidth.textContent = screenWidth.toFixed(1);
+        debugEls.globalNormX.textContent = globalNormX.toFixed(3);
+        debugEls.globalCurvedX.textContent = globalCurvedX.toFixed(3);
+        debugEls.centerX.textContent = headCenterX.toFixed(1);
+        debugEls.centerY.textContent = headCenterY.toFixed(1);
+        debugEls.distX.textContent = headDistX.toFixed(1);
+        debugEls.distY.textContent = headDistY.toFixed(1);
+        debugEls.influenceX.textContent = headInfluenceX.toFixed(3);
+        debugEls.influenceY.textContent = headInfluenceY.toFixed(3);
+        debugEls.influence.textContent = headInfluence.toFixed(3);
+        debugEls.gradPos.textContent = headPos.toFixed(1);
+      }
 
       // Update all title bars
-      document.querySelectorAll('.title-bar').forEach(function(titleBar) {
+      titleBars.forEach(function(titleBar) {
         const rect = titleBar.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
@@ -251,7 +272,7 @@
 
     // Set initial gradient position to center (90 degrees)
     document.getElementById('head').style.setProperty('--grad-pos', 90);
-    document.querySelectorAll('.title-bar').forEach(function(titleBar) {
+    titleBars.forEach(function(titleBar) {
       titleBar.style.setProperty('--grad-pos', 90);
     });
   </script>

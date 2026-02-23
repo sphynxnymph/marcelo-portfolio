@@ -218,8 +218,22 @@
       const headPos = 90 + (globalCurvedX - 0.5) * 180 * headInfluence;
       head.style.setProperty('--grad-pos', Math.max(0, Math.min(180, headPos)));
 
+      // Update debug window with header ("Marcelo's Stuff") values
+      document.getElementById('debug-cursorX').textContent = cursorX.toFixed(1);
+      document.getElementById('debug-cursorY').textContent = cursorY.toFixed(1);
+      document.getElementById('debug-screenWidth').textContent = screenWidth.toFixed(1);
+      document.getElementById('debug-globalNormX').textContent = globalNormX.toFixed(3);
+      document.getElementById('debug-globalCurvedX').textContent = globalCurvedX.toFixed(3);
+      document.getElementById('debug-centerX').textContent = headCenterX.toFixed(1);
+      document.getElementById('debug-centerY').textContent = headCenterY.toFixed(1);
+      document.getElementById('debug-distX').textContent = headDistX.toFixed(1);
+      document.getElementById('debug-distY').textContent = headDistY.toFixed(1);
+      document.getElementById('debug-influenceX').textContent = headInfluenceX.toFixed(3);
+      document.getElementById('debug-influenceY').textContent = headInfluenceY.toFixed(3);
+      document.getElementById('debug-influence').textContent = headInfluence.toFixed(3);
+      document.getElementById('debug-gradPos').textContent = headPos.toFixed(1);
+
       // Update all title bars
-      let firstTitleBar = true;
       document.querySelectorAll('.title-bar').forEach(function(titleBar) {
         const rect = titleBar.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
@@ -231,24 +245,6 @@
         const influence = Math.min(1, (influenceX + influenceY * 1.5) / 2);
         const pos = 90 + (globalCurvedX - 0.5) * 180 * influence;
         titleBar.style.setProperty('--grad-pos', Math.max(0, Math.min(180, pos)));
-
-        // Update debug window with first title bar's values
-        if (firstTitleBar) {
-          document.getElementById('debug-cursorX').textContent = cursorX.toFixed(1);
-          document.getElementById('debug-cursorY').textContent = cursorY.toFixed(1);
-          document.getElementById('debug-screenWidth').textContent = screenWidth.toFixed(1);
-          document.getElementById('debug-globalNormX').textContent = globalNormX.toFixed(3);
-          document.getElementById('debug-globalCurvedX').textContent = globalCurvedX.toFixed(3);
-          document.getElementById('debug-centerX').textContent = centerX.toFixed(1);
-          document.getElementById('debug-centerY').textContent = centerY.toFixed(1);
-          document.getElementById('debug-distX').textContent = distX.toFixed(1);
-          document.getElementById('debug-distY').textContent = distY.toFixed(1);
-          document.getElementById('debug-influenceX').textContent = influenceX.toFixed(3);
-          document.getElementById('debug-influenceY').textContent = influenceY.toFixed(3);
-          document.getElementById('debug-influence').textContent = influence.toFixed(3);
-          document.getElementById('debug-gradPos').textContent = pos.toFixed(1);
-          firstTitleBar = false;
-        }
       });
     });
 

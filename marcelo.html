@@ -192,23 +192,12 @@
       window.location.href = 'mailto:marcelo@ribeiro.info';
     }
 
-    // Cache debug elements outside handler
-    const debugEls = {
-      cursorX: document.getElementById('debug-cursorX'),
-      cursorY: document.getElementById('debug-cursorY'),
-      screenWidth: document.getElementById('debug-screenWidth'),
-      globalNormX: document.getElementById('debug-globalNormX'),
-      globalCurvedX: document.getElementById('debug-globalCurvedX'),
-      centerX: document.getElementById('debug-centerX'),
-      centerY: document.getElementById('debug-centerY'),
-      distX: document.getElementById('debug-distX'),
-      distY: document.getElementById('debug-distY'),
-      influenceX: document.getElementById('debug-influenceX'),
-      influenceY: document.getElementById('debug-influenceY'),
-      influence: document.getElementById('debug-influence'),
-      gradPos: document.getElementById('debug-gradPos'),
-      window: document.getElementById('debug-window')
-    };
+    // Cache debug elements (check they exist first)
+    const debugEls = {};
+    const debugElIds = ['debug-cursorX', 'debug-cursorY', 'debug-screenWidth', 'debug-globalNormX', 'debug-globalCurvedX', 'debug-centerX', 'debug-centerY', 'debug-distX', 'debug-distY', 'debug-influenceX', 'debug-influenceY', 'debug-influence', 'debug-gradPos', 'debug-window'];
+    debugElIds.forEach(function(id) {
+      debugEls[id.replace('debug-', '')] = document.getElementById(id);
+    });
     const titleBars = document.querySelectorAll('.title-bar');
 
     // Cursor-following gradient effect - global X with per-window influence

@@ -171,8 +171,8 @@
                   </a>
                 </div>
                 <div class="li">
-                  <a href="#" id="obfuscated-email" data-user="marcelo" data-domain="ribeiro.info" onclick="var u=this.getAttribute('data-user'),d=this.getAttribute('data-domain');this.href='mailto:'+u+'@'+d;return true;">
-                    <img src="./iconEmail.png">Email
+                  <a href="#" id="obfuscated-email" data-user="marcelo" data-domain="ribeiro.info" onclick="var u=this.getAttribute('data-user'),d=this.getAttribute('data-domain'),em=u+'@'+d,link=this,txt=link.querySelector('img+span'),oldText=txt.textContent;txt.textContent=em;link.style.transition='opacity 0.3s';setTimeout(function(){link.style.opacity='0';setTimeout(function(){txt.textContent=oldText;link.style.opacity='1';},300);},1000);return false;">
+                    <img src="./iconEmail.png"><span>Email</span>
                     <div>
                       <p><b>Email Me</b></p>
                       <p>Click to reveal.</p>

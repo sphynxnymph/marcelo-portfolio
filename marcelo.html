@@ -201,9 +201,10 @@
       const sensitivityRadiusX = screenWidth * 1.2;
       const sensitivityRadiusY = screenHeight * 1.2;
 
-      // Global X position with sine curve (this is the base)
+      // Global X position with smoothstep curve (tamer at edges)
       const globalNormX = cursorX / screenWidth;
-      const globalCurvedX = Math.pow(Math.sin(globalNormX * Math.PI), 0.5);
+      // Smoothstep: starts slow, changes fast in middle, ends slow
+      const globalCurvedX = globalNormX * globalNormX * (3 - 2 * globalNormX);
 
       // Update header
       const head = document.getElementById('head');

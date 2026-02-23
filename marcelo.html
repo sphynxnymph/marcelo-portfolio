@@ -168,18 +168,25 @@
       window.location.href = 'mailto:marcelo@ribeiro.info';
     }
 
-    // Cursor-following gradient effect - global X position mapped to each window's sensitivity zone
+    // Cursor-following gradient effect - X and Y position mapped to each window's sensitivity zone
     document.addEventListener('mousemove', function(e) {
       const cursorX = e.clientX;
+      const cursorY = e.clientY;
       const screenWidth = window.innerWidth;
-      const sensitivityRadius = screenWidth * 1.5; // Large radius so entire screen affects all windows
+      const screenHeight = window.innerHeight;
+      const sensitivityRadiusX = screenWidth * 1.5;
+      const sensitivityRadiusY = screenHeight * 1.5;
 
       // Update header
       const head = document.getElementById('head');
       const headRect = head.getBoundingClientRect();
       const headCenterX = headRect.left + headRect.width / 2;
-      const headDist = Math.abs(cursorX - headCenterX);
-      const headInfluence = Math.min(1, Math.max(0, (1 - (headDist / sensitivityRadius)) * 1.2));
+      const headCenterY = headRect.top + headRect.height / 2;
+      const headDistX = Math.abs(cursorX - headCenterX);
+      const headDistY = Math.abs(cursorY - headCenterY);
+      const headInfluenceX = Math.min(1, Math.max(0, (1 - (headDistX / sensitivityRadiusX)) * 1.2));
+      const headInfluenceY = Math.min(1, Math.max(0, (1 - (headDistY / sensitivityRadiusY)) * 1.2));
+      const headInfluence = (headInfluenceX + headInfluenceY) / 2;
       // Map: cursor far left = 0, cursor at window = 90, cursor far right = 180 (but influenced by proximity)
       const headPos = 90 + (cursorX / screenWidth - 0.5) * 180 * headInfluence;
       head.style.setProperty('--grad-pos', Math.max(0, Math.min(180, headPos)));
@@ -188,8 +195,12 @@
       document.querySelectorAll('.title-bar').forEach(function(titleBar) {
         const rect = titleBar.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
-        const dist = Math.abs(cursorX - centerX);
-        const influence = Math.min(1, Math.max(0, (1 - (dist / sensitivityRadius)) * 1.2));
+        const centerY = rect.top + rect.height / 2;
+        const distX = Math.abs(cursorX - centerX);
+        const distY = Math.abs(cursorY - centerY);
+        const influenceX = Math.min(1, Math.max(0, (1 - (distX / sensitivityRadiusX)) * 1.2));
+        const influenceY = Math.min(1, Math.max(0, (1 - (distY / sensitivityRadiusY)) * 1.2));
+        const influence = (influenceX + influenceY) / 2;
         const pos = 90 + (cursorX / screenWidth - 0.5) * 180 * influence;
         titleBar.style.setProperty('--grad-pos', Math.max(0, Math.min(180, pos)));
       });

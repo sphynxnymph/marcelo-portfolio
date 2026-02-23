@@ -168,23 +168,20 @@
       window.location.href = 'mailto:marcelo@ribeiro.info';
     }
 
-    // Cursor-following gradient effect - scroll based on cursor position relative to each window
+    // Cursor-following gradient effect - based on global cursor X position across entire screen
     document.addEventListener('mousemove', function(e) {
       const cursorX = e.clientX;
+      const screenWidth = window.innerWidth;
+      // Map cursor X position across entire screen to 0-180
+      const globalPos = (cursorX / screenWidth) * 180;
 
       // Update header
       const head = document.getElementById('head');
-      const headRect = head.getBoundingClientRect();
-      // Position from 0 (left) to 180 (right) based on cursor X relative to window
-      const headPos = ((cursorX - headRect.left) / headRect.width) * 180;
-      head.style.setProperty('--grad-pos', Math.max(0, Math.min(180, headPos)));
+      head.style.setProperty('--grad-pos', globalPos);
 
       // Update all title bars
       document.querySelectorAll('.title-bar').forEach(function(titleBar) {
-        const rect = titleBar.getBoundingClientRect();
-        // Position from 0 (left) to 180 (right) based on cursor X relative to window
-        const pos = ((cursorX - rect.left) / rect.width) * 180;
-        titleBar.style.setProperty('--grad-pos', Math.max(0, Math.min(180, pos)));
+        titleBar.style.setProperty('--grad-pos', globalPos);
       });
     });
 

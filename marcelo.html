@@ -10,6 +10,9 @@
   <link href="./style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+  <!-- Debug Circles -->
+  <div id="debug-circles" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998; display: none;"></div>
+
   <!-- Debug Window -->
   <div id="debug-window" class="window" style="position: fixed; top: 10px; right: 10px; width: 280px; z-index: 9999; font-family: monospace; font-size: 10px; display: none;">
     <div class="title-bar"><span class="title">DEBUG</span></div>
@@ -100,7 +103,7 @@
               <div class="desc" style="text-align:center;">(stuff that makes stuff)</div>
               <div class="inner">
                 <div class="li">
-                  <a href="#" onclick="var dw = document.getElementById('debug-window'); var ds = document.getElementById('debug-status'); dw.style.display = dw.style.display === 'none' ? 'block' : 'none'; ds.textContent = dw.style.display === 'none' ? 'OFF' : 'ON'; return false;">
+                  <a href="#" onclick="var dw = document.getElementById('debug-window'); var dc = document.getElementById('debug-circles'); var ds = document.getElementById('debug-status'); var isOn = dw.style.display !== 'none'; dw.style.display = isOn ? 'none' : 'block'; dc.style.display = isOn ? 'none' : 'block'; ds.textContent = isOn ? 'OFF' : 'ON'; return false;">
                     <img src="./iconWIP.png">Debug Toggle
                     <div>
                       <p><b>Debug Toggle</b></p>
@@ -240,10 +243,26 @@
       }
 
       // Update all title bars
+      const circlesContainer = document.getElementById('debug-circles');
+      circlesContainer.innerHTML = ''; // Clear old circles
+
+      // Only draw circles if debug is visible
+      if (!debugEls.window || debugEls.window.style.display === 'none') return;
+
+      // Draw circle for header
+      const headCircle = document.createElement('div');
+      headCircle.style.cssText = 'position: absolute; width: 20px; height: 20px; border: 2px solid red; border-radius: 50%; transform: translate(-50%, -50%); left: ' + headCenterX + 'px; top: ' + headCenterY + 'px;';
+      circlesContainer.appendChild(headCircle);
+
+      // Draw circles for each title bar
       titleBars.forEach(function(titleBar) {
         const rect = titleBar.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
+        const circle = document.createElement('div');
+        circle.style.cssText = 'position: absolute; width: 20px; height: 20px; border: 2px solid red; border-radius: 50%; transform: translate(-50%, -50%); left: ' + centerX + 'px; top: ' + centerY + 'px;';
+        circlesContainer.appendChild(circle);
+
         const distX = Math.abs(cursorX - centerX);
         const distY = Math.abs(cursorY - centerY);
         const influenceX = Math.max(0, 1 - (distX / sensitivityRadiusX));

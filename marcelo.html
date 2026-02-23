@@ -196,7 +196,7 @@
     });
     const titleBars = document.querySelectorAll('.title-bar');
 
-    // Cursor-following gradient effect - global X with per-window influence
+    // Cursor-following gradient effect - smoothstep centered on each window
     document.addEventListener('mousemove', function(e) {
       const cursorX = e.clientX;
       const cursorY = e.clientY;
@@ -204,11 +204,6 @@
       const screenHeight = window.innerHeight;
       const sensitivityRadiusX = screenWidth * 1.2;
       const sensitivityRadiusY = screenHeight * 1.2;
-
-      // Global X position with smoothstep curve (tamer at edges)
-      const globalNormX = cursorX / screenWidth;
-      // Smoothstep: starts slow, changes fast in middle, ends slow
-      const globalCurvedX = globalNormX * globalNormX * (3 - 2 * globalNormX);
 
       // Update header
       const head = document.getElementById('head');
@@ -220,16 +215,19 @@
       const headInfluenceX = Math.max(0, 1 - (headDistX / sensitivityRadiusX));
       const headInfluenceY = Math.max(0, 1 - (headDistY / sensitivityRadiusY));
       const headInfluence = Math.min(1, (headInfluenceX + headInfluenceY * 1.5) / 2);
-      const headPos = 90 + (globalCurvedX - 0.5) * 180 * headInfluence;
+      // Smoothstep centered on this window
+      const headNormX = (cursorX - headRect.left) / headRect.width;
+      const headCurvedX = headNormX * headNormX * (3 - 2 * headNormX);
+      const headPos = 90 + (headCurvedX - 0.5) * 180 * headInfluence;
       head.style.setProperty('--grad-pos', Math.max(0, Math.min(180, headPos)));
 
       // Update debug window only if visible
-      if (debugEls.window.style.display !== 'none') {
+      if (debugEls.window && debugEls.window.style.display !== 'none') {
         debugEls.cursorX.textContent = cursorX.toFixed(1);
         debugEls.cursorY.textContent = cursorY.toFixed(1);
         debugEls.screenWidth.textContent = screenWidth.toFixed(1);
-        debugEls.globalNormX.textContent = globalNormX.toFixed(3);
-        debugEls.globalCurvedX.textContent = globalCurvedX.toFixed(3);
+        debugEls.globalNormX.textContent = headNormX.toFixed(3);
+        debugEls.globalCurvedX.textContent = headCurvedX.toFixed(3);
         debugEls.centerX.textContent = headCenterX.toFixed(1);
         debugEls.centerY.textContent = headCenterY.toFixed(1);
         debugEls.distX.textContent = headDistX.toFixed(1);
@@ -250,7 +248,10 @@
         const influenceX = Math.max(0, 1 - (distX / sensitivityRadiusX));
         const influenceY = Math.max(0, 1 - (distY / sensitivityRadiusY));
         const influence = Math.min(1, (influenceX + influenceY * 1.5) / 2);
-        const pos = 90 + (globalCurvedX - 0.5) * 180 * influence;
+        // Smoothstep centered on this window
+        const normX = (cursorX - rect.left) / rect.width;
+        const curvedX = normX * normX * (3 - 2 * normX);
+        const pos = 90 + (curvedX - 0.5) * 180 * influence;
         titleBar.style.setProperty('--grad-pos', Math.max(0, Math.min(180, pos)));
       });
     });

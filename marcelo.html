@@ -168,20 +168,30 @@
       window.location.href = 'mailto:marcelo@ribeiro.info';
     }
 
-    // Cursor-following gradient effect - based on global cursor X position across entire screen
+    // Cursor-following gradient effect - global X position mapped to each window's sensitivity zone
     document.addEventListener('mousemove', function(e) {
       const cursorX = e.clientX;
       const screenWidth = window.innerWidth;
-      // Map cursor X position across entire screen to 0-180
-      const globalPos = (cursorX / screenWidth) * 180;
+      const sensitivityRadius = screenWidth * 1.5; // Large radius so entire screen affects all windows
 
       // Update header
       const head = document.getElementById('head');
-      head.style.setProperty('--grad-pos', globalPos);
+      const headRect = head.getBoundingClientRect();
+      const headCenterX = headRect.left + headRect.width / 2;
+      const headDist = Math.abs(cursorX - headCenterX);
+      const headInfluence = Math.max(0, 1 - (headDist / sensitivityRadius));
+      // Map: cursor far left = 0, cursor at window = 90, cursor far right = 180 (but influenced by proximity)
+      const headPos = 90 + (cursorX / screenWidth - 0.5) * 180 * headInfluence;
+      head.style.setProperty('--grad-pos', Math.max(0, Math.min(180, headPos)));
 
       // Update all title bars
       document.querySelectorAll('.title-bar').forEach(function(titleBar) {
-        titleBar.style.setProperty('--grad-pos', globalPos);
+        const rect = titleBar.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const dist = Math.abs(cursorX - centerX);
+        const influence = Math.max(0, 1 - (dist / sensitivityRadius));
+        const pos = 90 + (cursorX / screenWidth - 0.5) * 180 * influence;
+        titleBar.style.setProperty('--grad-pos', Math.max(0, Math.min(180, pos)));
       });
     });
 

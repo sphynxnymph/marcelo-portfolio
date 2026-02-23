@@ -168,12 +168,27 @@
       window.location.href = 'mailto:marcelo@ribeiro.info';
     }
 
-    // Cursor-following gradient effect
+    // Cursor-following gradient effect - scroll based on distance
     document.addEventListener('mousemove', function(e) {
-      const x = (e.clientX / window.innerWidth) * 100;
-      const y = (e.clientY / window.innerHeight) * 100;
-      document.body.style.setProperty('--cursor-x', x + '%');
-      document.body.style.setProperty('--cursor-y', y + '%');
+      const cursorX = e.clientX;
+      const cursorY = e.clientY;
+
+      // Update header
+      const head = document.getElementById('head');
+      const headRect = head.getBoundingClientRect();
+      const headDist = Math.sqrt(Math.pow(cursorX - (headRect.left + headRect.width/2), 2) + Math.pow(cursorY - (headRect.top + headRect.height/2), 2));
+      const headMaxDist = Math.max(window.innerWidth, window.innerHeight);
+      const headPos = Math.min(180, (headDist / headMaxDist) * 180);
+      head.style.setProperty('--grad-pos', headPos);
+
+      // Update all title bars
+      document.querySelectorAll('.title-bar').forEach(function(titleBar) {
+        const rect = titleBar.getBoundingClientRect();
+        const dist = Math.sqrt(Math.pow(cursorX - (rect.left + rect.width/2), 2) + Math.pow(cursorY - (rect.top + rect.height/2), 2));
+        const maxDist = Math.max(window.innerWidth, window.innerHeight);
+        const pos = Math.min(180, (dist / maxDist) * 180);
+        titleBar.style.setProperty('--grad-pos', pos);
+      });
     });
   </script>
 </body>

@@ -10,6 +10,30 @@
   <link href="./style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+  <!-- Debug Window -->
+  <div id="debug-window" class="window" style="position: fixed; top: 10px; right: 10px; width: 280px; z-index: 9999; font-family: monospace; font-size: 10px;">
+    <div class="title-bar"><span class="title">DEBUG</span></div>
+    <div class="window-inner" style="padding: 8px; max-height: 300px; overflow-y: auto;">
+      <div style="margin-bottom: 8px; border-bottom: 1px solid #000; padding-bottom: 4px;"><strong>Cursor</strong></div>
+      <div>cursorX: <span id="debug-cursorX">0</span></div>
+      <div>cursorY: <span id="debug-cursorY">0</span></div>
+      <div>screenWidth: <span id="debug-screenWidth">0</span></div>
+      <div style="margin: 8px 0; border-bottom: 1px solid #000; padding-bottom: 4px;"><strong>Global X</strong></div>
+      <div>globalNormX: <span id="debug-globalNormX">0</span></div>
+      <div>globalCurvedX: <span id="debug-globalCurvedX">0</span></div>
+      <div style="margin: 8px 0; border-bottom: 1px solid #000; padding-bottom: 4px;"><strong>Window (first title bar)</strong></div>
+      <div>centerX: <span id="debug-centerX">0</span></div>
+      <div>centerY: <span id="debug-centerY">0</span></div>
+      <div>distX: <span id="debug-distX">0</span></div>
+      <div>distY: <span id="debug-distY">0</span></div>
+      <div>influenceX: <span id="debug-influenceX">0</span></div>
+      <div>influenceY: <span id="debug-influenceY">0</span></div>
+      <div>influence (combined): <span id="debug-influence">0</span></div>
+      <div style="margin: 8px 0; border-bottom: 1px solid #000; padding-bottom: 4px; color: #00f;"><strong>FINAL</strong></div>
+      <div>gradPos: <span id="debug-gradPos" style="font-weight: bold; color: #00f;">90</span></div>
+    </div>
+  </div>
+
   <div id="wrapper">
     <div id="anchor">
       <!-- Header with glow wrapper -->
@@ -195,6 +219,7 @@
       head.style.setProperty('--grad-pos', Math.max(0, Math.min(180, headPos)));
 
       // Update all title bars
+      let firstTitleBar = true;
       document.querySelectorAll('.title-bar').forEach(function(titleBar) {
         const rect = titleBar.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
@@ -206,6 +231,24 @@
         const influence = Math.min(1, (influenceX + influenceY * 1.5) / 2);
         const pos = 90 + (globalCurvedX - 0.5) * 180 * influence;
         titleBar.style.setProperty('--grad-pos', Math.max(0, Math.min(180, pos)));
+
+        // Update debug window with first title bar's values
+        if (firstTitleBar) {
+          document.getElementById('debug-cursorX').textContent = cursorX.toFixed(1);
+          document.getElementById('debug-cursorY').textContent = cursorY.toFixed(1);
+          document.getElementById('debug-screenWidth').textContent = screenWidth.toFixed(1);
+          document.getElementById('debug-globalNormX').textContent = globalNormX.toFixed(3);
+          document.getElementById('debug-globalCurvedX').textContent = globalCurvedX.toFixed(3);
+          document.getElementById('debug-centerX').textContent = centerX.toFixed(1);
+          document.getElementById('debug-centerY').textContent = centerY.toFixed(1);
+          document.getElementById('debug-distX').textContent = distX.toFixed(1);
+          document.getElementById('debug-distY').textContent = distY.toFixed(1);
+          document.getElementById('debug-influenceX').textContent = influenceX.toFixed(3);
+          document.getElementById('debug-influenceY').textContent = influenceY.toFixed(3);
+          document.getElementById('debug-influence').textContent = influence.toFixed(3);
+          document.getElementById('debug-gradPos').textContent = pos.toFixed(1);
+          firstTitleBar = false;
+        }
       });
     });
 

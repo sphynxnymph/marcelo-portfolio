@@ -168,7 +168,7 @@
       window.location.href = 'mailto:marcelo@ribeiro.info';
     }
 
-    // Cursor-following gradient effect - global X position, Y only affects visibility
+    // Cursor-following gradient effect - global X with per-window influence
     document.addEventListener('mousemove', function(e) {
       const cursorX = e.clientX;
       const cursorY = e.clientY;
@@ -190,9 +190,8 @@
       const headDistY = Math.abs(cursorY - headCenterY);
       const headInfluenceX = Math.max(0, 1 - (headDistX / sensitivityRadiusX));
       const headInfluenceY = Math.max(0, 1 - (headDistY / sensitivityRadiusY));
-      // Y only affects opacity, X determines position
-      const headOpacity = Math.min(1, headInfluenceX + headInfluenceY);
-      const headPos = 90 + (globalCurvedX - 0.5) * 180 * headOpacity;
+      const headInfluence = Math.min(1, (headInfluenceX + headInfluenceY * 1.5) / 2);
+      const headPos = 90 + (globalCurvedX - 0.5) * 180 * headInfluence;
       head.style.setProperty('--grad-pos', Math.max(0, Math.min(180, headPos)));
 
       // Update all title bars
@@ -204,9 +203,8 @@
         const distY = Math.abs(cursorY - centerY);
         const influenceX = Math.max(0, 1 - (distX / sensitivityRadiusX));
         const influenceY = Math.max(0, 1 - (distY / sensitivityRadiusY));
-        // Y only affects opacity, X determines position
-        const opacity = Math.min(1, influenceX + influenceY);
-        const pos = 90 + (globalCurvedX - 0.5) * 180 * opacity;
+        const influence = Math.min(1, (influenceX + influenceY * 1.5) / 2);
+        const pos = 90 + (globalCurvedX - 0.5) * 180 * influence;
         titleBar.style.setProperty('--grad-pos', Math.max(0, Math.min(180, pos)));
       });
     });

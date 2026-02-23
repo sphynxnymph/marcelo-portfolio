@@ -179,7 +179,7 @@
       const headRect = head.getBoundingClientRect();
       const headCenterX = headRect.left + headRect.width / 2;
       const headDist = Math.abs(cursorX - headCenterX);
-      const headInfluence = Math.max(0, 1 - (headDist / sensitivityRadius));
+      const headInfluence = Math.min(1, Math.max(0, (1 - (headDist / sensitivityRadius)) * 1.2));
       // Map: cursor far left = 0, cursor at window = 90, cursor far right = 180 (but influenced by proximity)
       const headPos = 90 + (cursorX / screenWidth - 0.5) * 180 * headInfluence;
       head.style.setProperty('--grad-pos', Math.max(0, Math.min(180, headPos)));
@@ -189,7 +189,7 @@
         const rect = titleBar.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const dist = Math.abs(cursorX - centerX);
-        const influence = Math.max(0, 1 - (dist / sensitivityRadius));
+        const influence = Math.min(1, Math.max(0, (1 - (dist / sensitivityRadius)) * 1.2));
         const pos = 90 + (cursorX / screenWidth - 0.5) * 180 * influence;
         titleBar.style.setProperty('--grad-pos', Math.max(0, Math.min(180, pos)));
       });

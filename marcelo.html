@@ -167,6 +167,14 @@
     function revealEmail() {
       window.location.href = 'mailto:marcelo@ribeiro.info';
     }
+
+    // Cursor-following gradient effect
+    document.addEventListener('mousemove', function(e) {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      document.getElementById('wrapper').style.setProperty('--cursor-x', x + '%');
+      document.getElementById('wrapper').style.setProperty('--cursor-y', y + '%');
+    });
   </script>
 </body>
 </html>

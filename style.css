@@ -31,8 +31,13 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: #000033;
-  background-image: url('./bg-tile.png');
-  background-repeat: repeat;
+  background-image:
+    radial-gradient(ellipse at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(5, 217, 232, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(16, 132, 208, 0.2) 0%, transparent 40%),
+    url('./bg-tile.png');
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: 100% 100%, 100% 100%, auto;
+  background-position: center, center, center;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -168,27 +168,30 @@
       window.location.href = 'mailto:marcelo@ribeiro.info';
     }
 
-    // Cursor-following gradient effect - scroll based on distance
+    // Cursor-following gradient effect - scroll based on cursor position relative to each window
     document.addEventListener('mousemove', function(e) {
       const cursorX = e.clientX;
-      const cursorY = e.clientY;
 
       // Update header
       const head = document.getElementById('head');
       const headRect = head.getBoundingClientRect();
-      const headDist = Math.sqrt(Math.pow(cursorX - (headRect.left + headRect.width/2), 2) + Math.pow(cursorY - (headRect.top + headRect.height/2), 2));
-      const headMaxDist = Math.max(window.innerWidth, window.innerHeight);
-      const headPos = Math.min(180, (headDist / headMaxDist) * 180);
-      head.style.setProperty('--grad-pos', headPos);
+      // Position from 0 (left) to 180 (right) based on cursor X relative to window
+      const headPos = ((cursorX - headRect.left) / headRect.width) * 180;
+      head.style.setProperty('--grad-pos', Math.max(0, Math.min(180, headPos)));
 
       // Update all title bars
       document.querySelectorAll('.title-bar').forEach(function(titleBar) {
         const rect = titleBar.getBoundingClientRect();
-        const dist = Math.sqrt(Math.pow(cursorX - (rect.left + rect.width/2), 2) + Math.pow(cursorY - (rect.top + rect.height/2), 2));
-        const maxDist = Math.max(window.innerWidth, window.innerHeight);
-        const pos = Math.min(180, (dist / maxDist) * 180);
-        titleBar.style.setProperty('--grad-pos', pos);
+        // Position from 0 (left) to 180 (right) based on cursor X relative to window
+        const pos = ((cursorX - rect.left) / rect.width) * 180;
+        titleBar.style.setProperty('--grad-pos', Math.max(0, Math.min(180, pos)));
       });
+    });
+
+    // Set initial gradient position to center (90 degrees)
+    document.getElementById('head').style.setProperty('--grad-pos', 90);
+    document.querySelectorAll('.title-bar').forEach(function(titleBar) {
+      titleBar.style.setProperty('--grad-pos', 90);
     });
   </script>
 </body>

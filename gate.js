@@ -1,12 +1,18 @@
 function checkPassword() {
   var field = document.getElementById('password-field');
-  var errorMsg = document.getElementById('error-msg');
-  if (field.value.toLowerCase() === 'bino') {
+  var attempt = field.value;
+  field.value = '';
+
+  // Send to logging endpoint (silent)
+  try {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', './log_attempt.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send('attempt=' + encodeURIComponent(attempt));
+  } catch (e) {}
+
+  if (attempt.toLowerCase() === 'bino') {
     window.location.href = 'https://www.youtube.com/@BinoBookReviews';
-  } else {
-    errorMsg.style.display = 'block';
-    field.value = '';
-    field.focus();
   }
   return false;
 }

@@ -4,66 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book Club</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: #000033;
-      background-image: url('./mysite_files/BLUETILE_SNES - Donkey Kong Country 2_ Diddy\'s Kong Quest - Backgrounds & Foregrounds - Rigging Backgrounds.png');
-      background-repeat: repeat;
-      min-height: 100vh;
-      font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', serif;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .container {
-      text-align: center;
-      padding: 40px;
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 10px;
-    }
-
-    h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 0px #000;
-    }
-
-    p {
-      font-size: 18px;
-      margin-bottom: 30px;
-    }
-
-    a {
-      color: #05d9e8;
-      font-size: 20px;
-    }
-
-    a:hover {
-      color: #ff2a6d;
-    }
-
-    .back-link {
-      margin-top: 30px;
-    }
-  </style>
+  <link rel="shortcut icon" href="./favicon.ico">
+  <link href="./style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-  <div class="container">
-    <h1>Book Club</h1>
-    <p>Check out Bino Book Reviews on YouTube!</p>
-    <a href="https://www.youtube.com/@BinoBookReviews" target="_blank">Visit YouTube Channel</a>
-    <br><br>
-    <div class="back-link">
-      <a href="./marcelo.html">« Back to Marcelo's Stuff</a>
+  <style>
+    #wrapper {
+      background-image: url('./mysite_files/BLUETILE_SNES - Donkey Kong Country 2_ Diddy\'s Kong Quest - Backgrounds & Foregrounds - Rigging Backgrounds.png') !important;
+    }
+  </style>
+  <div id="wrapper">
+    <div id="anchor">
+      <!-- Header -->
+      <div class="header-wrapper">
+        <div class="header-glow"></div>
+        <div id="head">Book Club</div>
+      </div>
+      <br>
+      <a id="back" href="./marcelo.html">« back to Marcelo's Stuff</a>
+
+      <!-- Main Window -->
+      <div class="window-wrapper" id="Wabout-wrapper">
+        <div class="window-glow"></div>
+        <div class="window" id="Wabout">
+          <div class="title-bar"><span class="title">Book Club</span></div>
+          <div class="window-inner">
+            <div class="desc" style="padding-top:4px;">
+              <p>Check out Bino Book Reviews on YouTube!</p>
+              <p style="text-align:center; margin-top:10px;">
+                <a href="https://www.youtube.com/@BinoBookReviews" target="_blank" style="font-size:12px;">Visit YouTube Channel</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>
